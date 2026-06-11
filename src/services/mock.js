@@ -178,3 +178,143 @@ export function providerCounts(games) {
   games.forEach((g) => map.set(g.provider, (map.get(g.provider) || 0) + 1))
   return [...map.entries()].map(([name, count]) => ({ name, count }))
 }
+
+/* ===================== Sportsbook ===================== */
+export const SPORTS = [
+  { key: 'all', icon: 'layers' },
+  { key: 'football', icon: 'circle' },
+  { key: 'basketball', icon: 'dribbble' },
+  { key: 'tennis', icon: 'circle-dot' },
+  { key: 'volleyball', icon: 'volleyball' },
+]
+
+export const SPORT_EVENTS = [
+  {
+    id: 'e1', sport: 'football', league: 'Süper Lig', cc: 'tr', live: true, minute: '67', home: 'Galatasaray', away: 'Fenerbahçe', score: '1 - 1',
+    markets: [
+      { name: 'MS', picks: [{ label: 'MS1', odd: '2.10' }, { label: 'X', odd: '3.20' }, { label: 'MS2', odd: '3.05' }] },
+      { name: '2.5 Ü/A', picks: [{ label: 'Üst', odd: '1.85' }, { label: 'Alt', odd: '1.95' }] },
+      { name: 'KG', picks: [{ label: 'Var', odd: '1.70' }, { label: 'Yok', odd: '2.05' }] },
+    ],
+  },
+  {
+    id: 'e2', sport: 'football', league: 'Premier League', cc: 'gb', live: true, minute: '34', home: 'Arsenal', away: 'Chelsea', score: '2 - 0',
+    markets: [
+      { name: 'MS', picks: [{ label: 'MS1', odd: '1.55' }, { label: 'X', odd: '4.10' }, { label: 'MS2', odd: '5.50' }] },
+      { name: '2.5 Ü/A', picks: [{ label: 'Üst', odd: '1.60' }, { label: 'Alt', odd: '2.30' }] },
+      { name: 'ÇŞ', picks: [{ label: '1X', odd: '1.20' }, { label: '12', odd: '1.35' }, { label: 'X2', odd: '2.40' }] },
+    ],
+  },
+  {
+    id: 'e3', sport: 'football', league: 'La Liga', cc: 'es', live: false, time: '21:45', home: 'Real Madrid', away: 'Barcelona', score: null,
+    markets: [
+      { name: 'MS', picks: [{ label: 'MS1', odd: '2.35' }, { label: 'X', odd: '3.40' }, { label: 'MS2', odd: '2.80' }] },
+      { name: '2.5 Ü/A', picks: [{ label: 'Üst', odd: '1.72' }, { label: 'Alt', odd: '2.08' }] },
+    ],
+  },
+  {
+    id: 'e4', sport: 'basketball', league: 'NBA', cc: 'us', live: true, minute: 'Q3', home: 'Lakers', away: 'Celtics', score: '78 - 72',
+    markets: [
+      { name: 'MS', picks: [{ label: '1', odd: '1.90' }, { label: '2', odd: '1.90' }] },
+      { name: 'H', picks: [{ label: '1 (-4.5)', odd: '1.85' }, { label: '2 (+4.5)', odd: '1.95' }] },
+    ],
+  },
+  {
+    id: 'e5', sport: 'tennis', league: 'ATP', cc: 'fr', live: false, time: '20:00', home: 'Djokovic', away: 'Alcaraz', score: null,
+    markets: [{ name: 'MS', picks: [{ label: '1', odd: '2.05' }, { label: '2', odd: '1.75' }] }],
+  },
+  {
+    id: 'e6', sport: 'football', league: 'Serie A', cc: 'it', live: false, time: '22:00', home: 'Juventus', away: 'Milan', score: null,
+    markets: [
+      { name: 'MS', picks: [{ label: 'MS1', odd: '2.05' }, { label: 'X', odd: '3.10' }, { label: 'MS2', odd: '3.60' }] },
+      { name: '2.5 Ü/A', picks: [{ label: 'Üst', odd: '1.95' }, { label: 'Alt', odd: '1.85' }] },
+    ],
+  },
+  {
+    id: 'e7', sport: 'volleyball', league: 'CEV', cc: 'pl', live: false, time: '19:30', home: 'Zaksa', away: 'Perugia', score: null,
+    markets: [{ name: 'MS', picks: [{ label: '1', odd: '1.65' }, { label: '2', odd: '2.20' }] }],
+  },
+]
+
+/* ===================== Crash ===================== */
+export const CRASH_HISTORY = [2.34, 1.05, 8.71, 1.52, 3.08, 1.21, 15.4, 1.92, 4.6, 1.01, 2.77, 6.33]
+export const CRASH_LIVE_BETS = [
+  { user: 'Mert***', amount: 250, mult: 2.4, cashed: true },
+  { user: 'Ayşe***', amount: 100, mult: null, cashed: false },
+  { user: 'Can***', amount: 500, mult: 1.8, cashed: true },
+  { user: 'Deniz***', amount: 75, mult: null, cashed: false },
+  { user: 'Elif***', amount: 1000, mult: 3.1, cashed: true },
+  { user: 'Burak***', amount: 320, mult: null, cashed: false },
+]
+
+/* ===================== Promotions ===================== */
+export const PROMOS = [
+  {
+    id: 'welcome', theme: 'welcome', badge: 'Hoşgeldin', icon: 'gift',
+    title: '%100 Hoşgeldin Bonusu', desc: 'İlk yatırımına 10.000₺’ye kadar %100 bonus.',
+    stats: { wager: '10x', slot: '%100', maxWin: '100.000₺' },
+    terms: ['Minimum 1.000₺ yatırım', 'Çevrim: bonus + yatırım x10', 'Tek sefer, yeni üyelere özel', 'Maksimum kazanç 100.000₺'],
+  },
+  {
+    id: 'trial', theme: 'trial', badge: 'Deneme', icon: 'sparkles',
+    title: '2500₺ Deneme Bonusu', desc: 'Çevrim şartı olmadan deneme bonusu.',
+    stats: { wager: 'YOK', slot: '%100', maxWin: '50.000₺' },
+    terms: ['Çevrim şartı yok', 'Minimum 1 yatırım gerekli', 'Maksimum çekim 50.000₺', '48 saat geçerli'],
+  },
+  {
+    id: 'cashback', theme: 'cashback', badge: 'Kayıp Bonusu', icon: 'percent',
+    title: '%30 Slot Kayıp Bonusu', desc: 'Her hafta kaybının %30’u geri yüklenir.',
+    stats: { wager: '25x', slot: '%100', maxWin: '-' },
+    terms: ['Çarşamba & Cumartesi geçerli', '19.999₺’ye kadar %15, üzeri %30', 'Çevrim: bonus x25', 'Sadece slot oyunları'],
+  },
+  {
+    id: 'reload', theme: 'welcome', badge: 'Yatırım', icon: 'percent',
+    title: '%30 Slot Yatırım Bonusu', desc: 'Minimum 100₺ yatırımlarına %30 ek bonus.',
+    stats: { wager: '25x', slot: '%100', maxWin: 'VIP’e göre' },
+    terms: ['Minimum 100₺ yatırım', 'Çevrim: bonus x25', 'Kayıp bonusu ile birlikte kullanılamaz', 'Maksimum tutar VIP seviyene göre artar'],
+  },
+]
+
+/* ===================== VIP ===================== */
+export const VIP_TIERS = [
+  { name: 'Gold', icon: 'medal', cashback: '%5', color: '#f59e0b', perks: ['Öncelikli müşteri desteği', 'Haftalık kayıp bonusu', 'Özel slot turnuvaları'] },
+  { name: 'Platinum', icon: 'gem', cashback: '%10', color: '#63b3ff', perks: ['Kişisel hesap yöneticisi', 'Hızlı çekim önceliği', 'Doğum günü bonusu'] },
+  { name: 'Diamond', icon: 'crown', cashback: '%15', color: '#a78bfa', perks: ['7/24 özel destek hattı', 'Yüksek çekim limitleri', 'Özel etkinlik davetleri'] },
+  { name: 'Black', icon: 'shield', cashback: '%20', color: '#e2e8f0', perks: ['Sınırsız çekim limiti', 'Lüks hediyeler & tatil', 'Özel masalar & limitler'] },
+]
+
+/* ===================== Wheel ===================== */
+export const WHEEL_SEGMENTS = [
+  { label: '50₺', color: 'rgba(59,130,246,0.5)', kind: 'cash', value: 50 },
+  { label: '10 FS', color: 'rgba(16,185,129,0.5)', kind: 'fs', value: 10 },
+  { label: '100₺', color: 'rgba(245,158,11,0.5)', kind: 'cash', value: 100 },
+  { label: 'VIP 100', color: 'rgba(239,68,68,0.5)', kind: 'vip', value: 100 },
+  { label: '25₺', color: 'rgba(139,92,246,0.5)', kind: 'cash', value: 25 },
+  { label: '50 FS', color: 'rgba(20,184,166,0.5)', kind: 'fs', value: 50 },
+  { label: '250₺', color: 'rgba(244,63,94,0.5)', kind: 'cash', value: 250 },
+  { label: 'Tekrar', color: 'rgba(59,130,246,0.3)', kind: 'again', value: 0 },
+]
+
+/* ===================== Referrals ===================== */
+export const REFERRAL = {
+  code: 'SERDAR-7F3K',
+  link: 'https://serdarcivak.com/?ref=SERDAR-7F3K',
+  invited: 12,
+  active: 5,
+  earned: 1850,
+  reward: 250,
+}
+
+/* ===================== Bonuses (player) ===================== */
+export const PLAYER_BONUSES = {
+  active: [
+    { id: 'b1', title: '%100 Hoşgeldin Bonusu', amount: 1000, wagered: 6400, target: 10000, expires: '5 gün' },
+  ],
+  available: [
+    { id: 'b2', title: '2500₺ Deneme Bonusu', desc: 'Çevrim şartı yok', cta: 'Talep Et' },
+    { id: 'b3', title: '%30 Slot Kayıp Bonusu', desc: 'Çarşamba & Cumartesi', cta: 'Talep Et' },
+  ],
+  used: [
+    { id: 'b0', title: 'İlk Üyelik Bonusu', amount: 250, date: '07.06.2026' },
+  ],
+}
